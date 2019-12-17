@@ -1,10 +1,12 @@
 <!doctype html>
+<!--指定模版引擎-->
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<link rel="icon" href="https://static.nowcoder.com/images/logo_87_87.png"/>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" crossorigin="anonymous">
+	<!--添加了（th:     @），会帮你在static目录下找这个文件-->
 	<link rel="stylesheet" th:href="@{/css/global.css}" />
 	<title>牛客网-首页</title>
 </head>
@@ -21,7 +23,7 @@
 						<span class="navbar-toggler-icon"></span>
 					</button>
 					<!-- 功能 -->
-					<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<div class="collapse navbar-collapse" id="navbarSupportedContenxft">
 						<ul class="navbar-nav mr-auto">
 							<li class="nav-item ml-3 btn-group-vertical">
 								<a class="nav-link" href="index.html">首页</a>
@@ -117,18 +119,27 @@
 				</div>
 				
 				<!-- 帖子列表 -->
+				<!--需要显示动态数据-->
 				<ul class="list-unstyled">
+					<!--th：each 循环遍历,指定变量名代表每个map-->
 					<li class="media pb-3 pt-3 mb-3 border-bottom" th:each="map:${discussPosts}">
 						<a href="site/profile.html">
+							<!--动态显示头像，利用模版实现动态变化，src=一个动态的url-->
 							<img th:src="${map.user.headerUrl}" class="mr-4 rounded-circle" alt="用户头像" style="width:50px;height:50px;">
 						</a>
 						<div class="media-body">
 							<h6 class="mt-0 mb-3">
+								<!--本来要链接到当前页面，现在先用#代替-->
+								<!--thmleaf可以识别map语法，写的时候好像对象引用，但是实际上是get方法使用，这里到map.post相当于map.get("post"）-> User -> user.getHeadUrl()-->
+								<!--utext可以显示转义字符，比如可以把&lt变成<-->
 								<a href="#" th:utext="${map.post.title}">备战春招，面试刷题跟他复习，一个月全搞定！</a>
+								<!--加上判断查看是否置顶-->
+								<!--thyleaf不仅可以访问数据还可以做一些运算-->
 								<span class="badge badge-secondary bg-primary" th:if="${map.post.type==1}">置顶</span>
 								<span class="badge badge-secondary bg-danger" th:if="${map.post.status==1}">精华</span>
 							</h6>
 							<div class="text-muted font-size-12">
+								<!--用#dates.format  yyyy-MM&#45;&#45;dd HH:mm:ss 格式化-->
 								<u class="mr-3" th:utext="${map.user.username}">寒江雪</u> 发布于 <b th:text="${#dates.format(map.post.createTime,'yyyy-MM-dd HH:mm:ss')}">2019-04-15 15:32:18</b>
 								<ul class="d-inline float-right">
 									<li class="d-inline ml-2">赞 11</li>
@@ -140,16 +151,27 @@
 					</li>
 				</ul>
 				<!-- 分页 -->
+				<!--<nav 作用是导航-->
 				<nav class="mt-5" th:if="${page.rows>0}">
 					<ul class="pagination justify-content-center">
 						<li class="page-item">
+							<!--访问首页需要参数 thymeleaf可以帮你把@{${page.path}(current=1,limit=5)}转换成类似 /index?current=1&limit=5-->
 							<a class="page-link" th:href="@{${page.path}(current=1)}">首页</a>
 						</li>
+						<!--disable代表不可点-->
+						<!--th表示动态数据-->
+						<!--固定数据拼上变量，   |   | 表示这是静态值，可以再拼上一些东西-->
+						<!--第一页代表不可点-->
 						<li th:class="|page-item ${page.current==1?'disabled':''}|">
 							<a class="page-link" th:href="@{${page.path}(current=${page.current-1})}">上一页</a></li>
+
+						<!--#numbers有一个sequence函数 ，该方法可以返回一个数组。从from到to构造连续数组，i用来引用每一个数字-->
+						<!--i刚好是当前页就点亮-->
 						<li th:class="|page-item ${i==page.current?'active':''}|" th:each="i:${#numbers.sequence(page.from,page.to)}">
+							<!--引用变量i-->
 							<a class="page-link" href="#" th:text="${i}">1</a>
 						</li>
+
 						<li th:class="|page-item ${page.current==page.total?'disabled':''}|">
 							<a class="page-link" th:href="@{${page.path}(current=${page.current+1})}">下一页</a>
 						</li>
@@ -227,6 +249,7 @@
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" crossorigin="anonymous"></script>
+	//js也是类似 加上 th @
 	<script th:src="@{/js/global.js}"></script>
 	<script th:src="@{js/index.js}"></script>
 </body>
