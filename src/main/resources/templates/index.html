@@ -13,7 +13,8 @@
 <body>	
 	<div class="nk-container">
 		<!-- 头部 -->
-		<header class="bg-dark sticky-top">
+		<!--可以复用这段代码,给这一段代码去一个名字-->
+		<header class="bg-dark sticky-top" th:fragment="header">
 			<div class="container">
 				<!-- 导航 -->
 				<nav class="navbar navbar-expand-lg navbar-dark">
@@ -23,30 +24,37 @@
 						<span class="navbar-toggler-icon"></span>
 					</button>
 					<!-- 功能 -->
-					<div class="collapse navbar-collapse" id="navbarSupportedContenxft">
+					<div class="collapse navbar-collapse" id="navbarSupportedContent">
 						<ul class="navbar-nav mr-auto">
 							<li class="nav-item ml-3 btn-group-vertical">
-								<a class="nav-link" href="index.html">首页</a>
+								<!--用thymeleaf管理,这样就是动态的了-->
+								<a class="nav-link" th:href="@{/index}">首页</a>
 							</li>
-							<li class="nav-item ml-3 btn-group-vertical">
-								<a class="nav-link position-relative" href="site/letter.html">消息<span class="badge badge-danger">12</span></a>
+
+							<!--消息是登陆才显示-->
+							<li class="nav-item ml-3 btn-group-vertical"  th:if="${loginUser!=null}">
+								<a class="nav-link position-relative" href="site/letter.html" >消息<span class="badge badge-danger">12</span></a>
 							</li>
-							<li class="nav-item ml-3 btn-group-vertical">
-								<a class="nav-link" href="site/register.html">注册</a>
+							<li class="nav-item ml-3 btn-group-vertical"  th:if="${loginUser==null}">
+								<a class="nav-link" th:href="@{/register}">注册</a>
 							</li>
-							<li class="nav-item ml-3 btn-group-vertical">
-								<a class="nav-link" href="site/login.html">登录</a>
+							<li class="nav-item ml-3 btn-group-vertical" th:if="${loginUser==null}">
+								<!--配置登陆页面-->
+								<a class="nav-link" th:href="@{/login}">登录</a>
 							</li>
-							<li class="nav-item ml-3 btn-group-vertical dropdown">
+							<li class="nav-item ml-3 btn-group-vertical dropdown" th:if="${loginUser!=null}">
+								<!--动态显示头像-->
 								<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-									<img src="http://images.nowcoder.com/head/1t.png" class="rounded-circle" style="width:30px;"/>
+									<img th:src="${loginUser.headerUrl}" class="rounded-circle" style="width:30px;"/>
 								</a>
 								<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 									<a class="dropdown-item text-center" href="site/profile.html">个人主页</a>
-									<a class="dropdown-item text-center" href="site/setting.html">账号设置</a>
-									<a class="dropdown-item text-center" href="site/login.html">退出登录</a>
+									<a class="dropdown-item text-center" th:href="@{/user/setting}">账号设置</a>
+									<a class="dropdown-item text-center" th:href="@{/logout}">退出登录</a>
 									<div class="dropdown-divider"></div>
-									<span class="dropdown-item text-center text-secondary">nowcoder</span>
+									<!--用户名也是动态显示-->
+									<!--utext可以显示特殊符号-->
+									<span class="dropdown-item text-center text-secondary" th:utext="${loginUser.username}">nowcoder</span>
 								</div>
 							</li>
 						</ul>
