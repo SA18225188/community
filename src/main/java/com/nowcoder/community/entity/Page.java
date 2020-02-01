@@ -14,45 +14,7 @@ public class Page {
     private String path;
 
 
-    /**
-     * 获取当前等起始行
-     * @return
-     */
 
-    public int getOffset(){
-        //current * limit -limit
-        return (current -1) * limit;
-    }
-
-    /**
-     * 获取总页数
-     * @return
-     */
-
-    public int getTotal(){
-        //rows /limit
-
-        if (rows % limit == 0){
-            return rows / limit;
-        }else {
-            return rows / limit + 1;
-        }
-    }
-
-    /**
-     * 根据当前页获取起始页码和后两页
-     * @return
-     */
-
-    public int getFrom(){
-        int from = current - 2;
-        return from < 1 ? 1 :from;
-    }
-
-    public int getTo(){
-        int to = current + 2;
-        return to > getTotal() ? getTotal() : getTotal();
-    }
 
     public int getCurrent() {
         return current;
@@ -92,13 +54,46 @@ public class Page {
         this.path = path;
     }
 
-    @Override
-    public String toString() {
-        return "Page{" +
-                "current=" + current +
-                ", limit=" + limit +
-                ", rows=" + rows +
-                ", path='" + path + '\'' +
-                '}';
+
+    /**
+     * 获取当前等起始行
+     * @return
+     */
+
+    public int getOffset(){
+        //current * limit -limit
+        return (current -1) * limit;
     }
+
+    /**
+     * 获取总页数
+     * @return
+     */
+
+    public int getTotal(){
+        //rows /limit
+
+        if (rows % limit == 0){
+            return rows / limit;
+        }else {
+            return rows / limit + 1;
+        }
+    }
+
+    /**
+     * 根据当前页获取起始页码和后两页
+     * @return
+     */
+
+    public int getFrom(){
+        int from = current - 2;
+        return from < 1 ? 1 :from;
+    }
+
+    public int getTo(){
+        int to = current + 2;
+        int total = getTotal();
+        return to > getTotal() ? total : to;
+    }
+
 }

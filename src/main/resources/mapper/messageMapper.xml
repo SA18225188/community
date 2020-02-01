@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nowcoder.community.dao.MessageMapper">
+
+    <sql id="selectFields">
+        id, from_id, to_id, conversation_id, content, status, create_time
+    </sql>
+
+    <sql id="insertFields">
+        from_id, to_id, conversation_id, content, status, create_time
+    </sql>
+
+    <!--按照conversation_id 分组，每组取一个最大的id，也就是最新的值，from_id =1代表系统发送消息，不管from_id还是to_id，只要等于userId都是一个关于userId的对话对话-->
+    <select id="selectConversations" resultType="Message">
+        select <include refid="selectFields"></include>
+        from message
+        where id in (
+            select max(id) from message
+            where status != 2
+            and from_id != 1
+            and (from_id = #{userId} or to_id = #{userId})
+            group by conversation_id
+        )
+        order by id desc
+        limit #{offset}, #{limit}
+    </select>
+
+
+    <!--给子查询取一个别名-->
+    <select id="selectConversationCount" resultType="int">
+
+
+        select count(m.maxid)  from (
+            select max(id) as maxid from message
+            where status != 2
+            and from_id != 1
+            and (from_id = #{userId} or to_id = #{userId})
+            group by conversation_id
+        ) as m
+    </select>
+
+    <select id="selectLetters" resultType="Message">
+        select <include refid="selectFields"></include>
+        from message
+        where status != 2
+        and from_id != 1
+        and conversation_id = #{conversationId}
+        order by id desc
+        limit #{offset}, #{limit}
+    </select>
+
+    <select id="selectLetterCount" resultType="int">
+        select count(id)
+        from message
+        where status != 2
+        and from_id != 1
+        and conversation_id = #{conversationId}
+    </select>
+
+
+    <!--消息发送给谁才是未读   conversation_id没有就算了，有就拿来拼一下-->
+    <select id="selectLetterUnreadCount" resultType="int">
+        select count(id)
+        from message
+        where status = 0
+        and from_id != 1
+        and to_id = #{userId}
+        <if test="conversationId!=null">
+            and conversation_id = #{conversationId}
+        </if>
+    </select>
+
+
+    <!--增加的时候id是自增长的，需要事先声明-->
+    <insert id="insertMessage" parameterType="Message" keyProperty="id">
+        insert into message(<include refid="insertFields"></include>)
+        values(#{fromId},#{toId},#{conversationId},#{content},#{status},#{createTime})
+    </insert>
+
+
+    <!--传入的id是多个，所以不能id等于，需要id  in语法：select * from where field in (value1,value2,value3,…)-->
+    <!--foreach语法，对于参数ids中，遍历每一个得到id，#{id}把遍历得到的每一个id拼接到括号中-->
+    <update id="updateStatus">
+        update message set status = #{status}
+        where id in
+        <foreach collection="ids" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
+</mapper>

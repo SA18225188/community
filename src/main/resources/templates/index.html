@@ -33,7 +33,7 @@
 
 							<!--消息是登陆才显示-->
 							<li class="nav-item ml-3 btn-group-vertical"  th:if="${loginUser!=null}">
-								<a class="nav-link position-relative" href="site/letter.html" >消息<span class="badge badge-danger">12</span></a>
+								<a class="nav-link position-relative" th:href="@{/letter/list}" >消息<span class="badge badge-danger">12</span></a>
 							</li>
 							<li class="nav-item ml-3 btn-group-vertical"  th:if="${loginUser==null}">
 								<a class="nav-link" th:href="@{/register}">注册</a>
@@ -81,7 +81,7 @@
 							<a class="nav-link" href="#">最热</a>
 						</li>
 					</ul>
-					<button type="button" class="btn btn-primary btn-sm position-absolute rt-0" data-toggle="modal" data-target="#publishModal">我要发布</button>
+					<button type="button" class="btn btn-primary btn-sm position-absolute rt-0" data-toggle="modal" data-target="#publishModal" th:if="${loginUser!=null}">我要发布</button>
 				</div>
 				<!-- 弹出框 -->
 				<div class="modal fade" id="publishModal" tabindex="-1" role="dialog" aria-labelledby="publishModalLabel" aria-hidden="true">
@@ -140,7 +140,7 @@
 								<!--本来要链接到当前页面，现在先用#代替-->
 								<!--thmleaf可以识别map语法，写的时候好像对象引用，但是实际上是get方法使用，这里到map.post相当于map.get("post"）-> User -> user.getHeadUrl()-->
 								<!--utext可以显示转义字符，比如可以把&lt变成<-->
-								<a href="#" th:utext="${map.post.title}">备战春招，面试刷题跟他复习，一个月全搞定！</a>
+								<a th:href="@{|/discuss/detail/${map.post.id}|}" th:utext="${map.post.title}">备战春招，面试刷题跟他复习，一个月全搞定！</a>
 								<!--加上判断查看是否置顶-->
 								<!--thyleaf不仅可以访问数据还可以做一些运算-->
 								<span class="badge badge-secondary bg-primary" th:if="${map.post.type==1}">置顶</span>
@@ -152,7 +152,7 @@
 								<ul class="d-inline float-right">
 									<li class="d-inline ml-2">赞 11</li>
 									<li class="d-inline ml-2">|</li>
-									<li class="d-inline ml-2">回帖 7</li>
+									<li class="d-inline ml-2">回帖 <span th:text="${map.post.commentCount}">7</span></li>
 								</ul>
 							</div>
 						</div>						
@@ -160,7 +160,7 @@
 				</ul>
 				<!-- 分页 -->
 				<!--<nav 作用是导航-->
-				<nav class="mt-5" th:if="${page.rows>0}">
+				<nav class="mt-5" th:if="${page.rows>0}" th:fragment="pagination">
 					<ul class="pagination justify-content-center">
 						<li class="page-item">
 							<!--访问首页需要参数 thymeleaf可以帮你把@{${page.path}(current=1,limit=5)}转换成类似 /index?current=1&limit=5-->
@@ -257,7 +257,7 @@
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" crossorigin="anonymous"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" crossorigin="anonymous"></script>
-	//js也是类似 加上 th @
+	<!--//js也是类似 加上 th @-->
 	<script th:src="@{/js/global.js}"></script>
 	<script th:src="@{js/index.js}"></script>
 </body>
