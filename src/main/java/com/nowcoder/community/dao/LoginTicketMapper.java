@@ -6,7 +6,9 @@ import org.apache.ibatis.annotations.*;
 
 
 //mapper表明这是数据访问对象 需要容器来管理
+//Deprecated表示不推荐使用
 @Mapper
+@Deprecated
 public interface LoginTicketMapper {
 
 //    不仅可以用xml配置，也可以用注解实现
