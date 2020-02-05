@@ -85,7 +85,16 @@
 			<artifactId>spring-boot-starter-data-redis</artifactId>
 		</dependency>
 
+		<!--不需要写version，当前pom继承一个父pom，父pom已经声明了常用的版本，已经做了测试，互相兼容，不会出错-->
+		<dependency>
+			<groupId>org.springframework.kafka</groupId>
+			<artifactId>spring-kafka</artifactId>
+		</dependency>
+
 	</dependencies>
+
+
+
 
 
 

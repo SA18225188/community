@@ -3,12 +3,13 @@ package com.nowcoder.community.config;
 import com.nowcoder.community.controller.interceptor.AlphaInterceptor;
 import com.nowcoder.community.controller.interceptor.LoginRequiredInterceptor;
 import com.nowcoder.community.controller.interceptor.LoginTicketInterceptor;
+import com.nowcoder.community.controller.interceptor.MessageIntereceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-
+//实现拦截器配置
 //拦截器配置需要实现一个接口
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
@@ -20,6 +21,9 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     @Autowired
     private LoginRequiredInterceptor loginRequiredInterceptor;
+
+    @Autowired
+    private MessageIntereceptor messageIntereceptor;
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
@@ -33,6 +37,9 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .excludePathPatterns("/**/*.css", "/**/*.js", "/**/*.png", "/**/*.jpg", "/**/*.jpeg");
 
         registry.addInterceptor(loginRequiredInterceptor)
+                .excludePathPatterns("/**/*.css", "/**/*.js", "/**/*.png", "/**/*.jpg", "/**/*.jpeg");
+
+        registry.addInterceptor(messageIntereceptor)
                 .excludePathPatterns("/**/*.css", "/**/*.js", "/**/*.png", "/**/*.jpg", "/**/*.jpeg");
     }
 

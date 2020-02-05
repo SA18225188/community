@@ -19,6 +19,9 @@ import java.util.Date;
 public class ServiceLogAspect {
 
 
+
+    //描述哪些方法需要处理
+//    *表示所有的返回值，com.nowcoder.community.service包名，*是所有的业务组件，*表示所有方法 ，(..)表示所有的参数
     //因为注入log，需要实例日志
     private static final Logger logger = LoggerFactory.getLogger(ServiceLogAspect.class);
 
@@ -34,6 +37,10 @@ public class ServiceLogAspect {
         // 日志格式：用户[1.2.3.4],在[xxx时间],访问了[com.nowcoder.community.service.xxx()功能].
        //以下代码目的是获取ip
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        //表示这是一个特殊的日志，就不记录日志了
+        if (attributes == null) {
+            return;
+        }
         HttpServletRequest request = attributes.getRequest();
         String ip = request.getRemoteHost();
         String now = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());

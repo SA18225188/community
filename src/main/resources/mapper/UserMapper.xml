@@ -50,4 +50,10 @@
     <update id="updatePassword">
         update user set password = #{password} where id = #{id}
     </update>
+
+    <select id="selectCommentById" resultType="Comment">
+        select <include refid="selectField"></include>
+        from comment
+        where id = #{id}
+    </select>
 </mapper>
