@@ -57,6 +57,21 @@ public class CommentController implements CommunityConstant {
         eventProducer.fireEvent(event);
 
 
+        //评论之后帖子会变化，需要重新插入es
+        //发布帖子 异步提交给es服务器
+        //需要判断，只有评论给帖子才做类似es插入
+        if (comment.getEntityType() == ENTITY_TYPE_POST) {
+            //触发发帖事件
+            event = new Event()
+                    .setTopic(TOPIC_PUBLIC)
+                    .setUserId(comment.getUserId())
+                    .setEntityType(ENTITY_TYPE_POST)
+                    .setEntityId(discussPostId);
+            eventProducer.fireEvent(event);
+        }
+
+
+
         //重新回到详情页面
         return "redirect:/discuss/detail/" + discussPostId;
     }

@@ -53,6 +53,7 @@ public interface CommunityConstant {
     String TOPIC_COMMENT = "comment";
 
 
+
     /**
      * 主题 点赞
      */
@@ -63,6 +64,13 @@ public interface CommunityConstant {
      * 主题 关注
      */
     String TOPIC_FOLLOW = "follow";
+
+
+    /**
+     * 主题 发帖
+     */
+    String TOPIC_PUBLIC = "public";
+
 
     /**
      * 系统用户ID
