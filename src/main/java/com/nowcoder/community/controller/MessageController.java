@@ -182,9 +182,11 @@ public class MessageController implements CommunityConstant {
 
         // 查询评论类通知
         Message message = messageService.findLatestNotice(user.getId(), TOPIC_COMMENT);
-        //需要user，所以需要一个Map用来聚合数据
-        Map<String, Object> messageVO = new HashMap<>();
+
+        //确实有人什么通知都没有，这样commentNotice里面就是空值
         if (message != null) {
+            //需要user，所以需要一个Map用来聚合数据
+            Map<String, Object> messageVO = new HashMap<>();
             messageVO.put("message", message);
 
             //评论类通知格式：{&quot;entityType&quot;:3,&quot;entityId&quot;:170,&quot;userId&quot;:0}
@@ -203,13 +205,15 @@ public class MessageController implements CommunityConstant {
 
             int unread = messageService.findNoticeUnreadCount(user.getId(), TOPIC_COMMENT);
             messageVO.put("unread", unread);
+            model.addAttribute("commentNotice", messageVO);
         }
-        model.addAttribute("commentNotice", messageVO);
+
 
         // 查询点赞类通知
         message = messageService.findLatestNotice(user.getId(), TOPIC_LIKE);
-        messageVO = new HashMap<>();
+
         if (message != null) {
+            Map<String, Object> messageVO = new HashMap<>();
             messageVO.put("message", message);
 
             String content = HtmlUtils.htmlUnescape(message.getContent());
@@ -225,13 +229,15 @@ public class MessageController implements CommunityConstant {
 
             int unread = messageService.findNoticeUnreadCount(user.getId(), TOPIC_LIKE);
             messageVO.put("unread", unread);
+            model.addAttribute("likeNotice", messageVO);
         }
-        model.addAttribute("likeNotice", messageVO);
+
 
         // 查询关注类通知
         message = messageService.findLatestNotice(user.getId(), TOPIC_FOLLOW);
-        messageVO = new HashMap<>();
+
         if (message != null) {
+            Map<String, Object> messageVO = new HashMap<>();
             messageVO.put("message", message);
 
             String content = HtmlUtils.htmlUnescape(message.getContent());
@@ -247,8 +253,9 @@ public class MessageController implements CommunityConstant {
 
             int unread = messageService.findNoticeUnreadCount(user.getId(), TOPIC_FOLLOW);
             messageVO.put("unread", unread);
+            model.addAttribute("followNotice", messageVO);
         }
-        model.addAttribute("followNotice", messageVO);
+
 
 
 

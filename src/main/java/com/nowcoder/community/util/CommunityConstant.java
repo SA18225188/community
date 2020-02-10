@@ -73,10 +73,31 @@ public interface CommunityConstant {
 
 
     /**
+     * 主题 删贴
+     */
+    String TOPIC_DELETE = "delete";
+
+
+    /**
      * 系统用户ID
      */
 
     int SYSTEM_USER_ID = 1;
+
+    /**
+     * 普通用户
+     */
+    String AUTHRITY_USER = "user";
+
+    /**
+     * 管理员
+     */
+    String AUTHRITY_ADMIN = "admin";
+
+    /**
+     * 超级版主
+     */
+    String AUTHRITY_MODERATOR = "moderator";
 
 }
 

@@ -6,7 +6,7 @@
 
     <!--常用字段-->
     <sql id="selectField">
-        id, username, password, salt, status, activation_code, header_url, create_time
+        id, username, password, salt, email, type, status, activation_code, header_url, create_time
     </sql>
 
     <sql id="insertField">

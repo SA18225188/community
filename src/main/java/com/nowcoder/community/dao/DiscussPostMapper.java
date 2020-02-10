@@ -8,7 +8,8 @@ import java.util.List;
 
 @Mapper
 public interface DiscussPostMapper {
-    List<DiscussPost> selectDiscussPosts(int userId, int offset, int limit);
+    //orderMode传入参数为1，代表按照热度排序
+    List<DiscussPost> selectDiscussPosts(int userId, int offset, int limit, int orderMode);
 //    分页要知道有多少页，查询一共多少数据，方便页面展示
 
 
@@ -20,4 +21,10 @@ public interface DiscussPostMapper {
     DiscussPost selectDiscussPostById(int id);
 
     int updateCommentCount(int id, int commentCount);
+
+    int updateType(int id, int type);
+
+    int updateStatus(int id, int status);
+
+    int updateScore(int id, double score);
 }
