@@ -9,11 +9,15 @@
     <input type="button" value="send" onclick="send();">
 </p>
 
+
+<!--实现send（），需要引入jquery-->
 <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
 <script>
 
     // function(data)是返回的数据
     function send() {
+        //jquery发送请求
+        //三个参数：第一个是访问路径，第二个参数是向服务器提交的数据，第三个参数是匿名回掉函数（服务器返回给浏览器的数据）
         $.post(
             "/community/alpha/ajax",
             {"name":"张三","age":23},

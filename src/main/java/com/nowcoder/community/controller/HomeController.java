@@ -32,6 +32,11 @@ public class HomeController implements CommunityConstant {
     private LikeService likeService;
 
 
+    @RequestMapping(path = "/", method = RequestMethod.GET)
+    public String root() {
+        return "forward:/index";
+    }
+
 
     @RequestMapping(path = "/index", method = RequestMethod.GET)
     public String getIndexPage(Model model, Page page, @RequestParam(name = "orderMode", defaultValue = "0") int orderMode){
@@ -39,7 +44,7 @@ public class HomeController implements CommunityConstant {
         //在thymeleaf中可以直接访问page对象到结果
         page.setRows(discussPostService.findDiscussPostRows(0));
         //GET 请求不适合传数据，适合拼接一个？号
-        page.setPath("/index？orderMode=" + "orderMode");
+        page.setPath("/index?orderMode=" + orderMode);
         //userid为0代表所有数据
         List<DiscussPost> list = discussPostService.findDiscussPostList(0, page.getOffset(), page.getLimit(), orderMode );
         List<Map<String, Object>> discussPosts = new ArrayList<>();

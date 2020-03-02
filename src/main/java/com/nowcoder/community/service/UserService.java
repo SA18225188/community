@@ -116,6 +116,7 @@ public class UserService implements CommunityConstant {
         // http://localhost:8080/community/activation/101/code
         String url = domain + contextPath + "/activation/" + user.getId() + "/" + user.getActivationCode();
         context.setVariable("url", url);
+        ///mail/activation存放的是html
         String content = templateEngine.process("/mail/activation", context);
         mailClient.sendMail(user.getEmail(), "激活账号", content);
         return map;
@@ -128,7 +129,7 @@ public class UserService implements CommunityConstant {
         if (user.getStatus() == 1) {
             return ACTIVATION_REPEAT;
         }else if (user.getActivationCode().equals(code)){
-//            userMapper.updateStatus(userId, 1);
+//            userMapper.updatetatus(userId, 1);
             clearCatche(userId);
             return ACTIVATION_SUCCESS;
         }else {

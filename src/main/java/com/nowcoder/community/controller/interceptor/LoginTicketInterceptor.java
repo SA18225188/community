@@ -39,7 +39,7 @@ public class LoginTicketInterceptor implements HandlerInterceptor {
                 User user = userService.findUserById(loginTicket.getUserId());
 //                在本次请求中持有用户
 //                会出现多个浏览器访问一个一个服务器情况 所以存在并发操作 考虑线程隔离 隔离存取对象
-//                  在处理请求的过程中线程都是存活的 ，请求处理完，服务器做好响应，线程才结束，threadlocal东西都在的
+//                在处理请求的过程中线程都是存活的 ，请求处理完，服务器做好响应，线程才结束，threadlocal东西都在的
                 hostHolder.setUser(user);
 
                 //构建用户认证的结果，并存入SecurityContext，以便于security进行授权
@@ -60,6 +60,8 @@ public class LoginTicketInterceptor implements HandlerInterceptor {
         }
     }
 
+
+    //模版引擎之后执行
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
         hostHolder.clear();

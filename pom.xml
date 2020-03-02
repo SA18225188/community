@@ -14,6 +14,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>community</name>
 	<description>nowcoder community</description>
+	<packaging>war</packaging>
 
 	<properties>
 		<java.version>11</java.version>
@@ -133,6 +134,8 @@
 	</dependencies>
 
 	<build>
+		<!--这样打包项目的时候就可以打成一个名字为ROOT的war包-->
+		<finalName>ROOT</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>

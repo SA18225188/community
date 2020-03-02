@@ -32,6 +32,7 @@ public class SensitiveFilter {
         try(
                 InputStream is = this.getClass().getClassLoader().getResourceAsStream("sensitive-words.txt");
                 //字节转化成字符流
+
                 BufferedReader reader = new BufferedReader(new InputStreamReader(is));
 
                 ){
@@ -143,7 +144,7 @@ public class SensitiveFilter {
     private class TrieNode{
 
 
-        //单词结束标志符号
+        //关键词结束标志符号
         private boolean isKeywordEnd =false;
 
         //描述子节点 可能多个节点 子节点和字符绑定起来 key是下级字符， value是下级节点

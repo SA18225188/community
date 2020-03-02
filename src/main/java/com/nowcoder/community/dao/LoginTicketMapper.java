@@ -34,6 +34,7 @@ public interface LoginTicketMapper {
     //    互联网真正删除数据的情况很少，很多情况就是修改一下状态
     @Update({
 //            可以利用scrip实现动态脚本
+            //如果想用if标签，前面需要套上<script>
             "<script>",
             "update login_ticket set status=#{status} where ticket=#{ticket}",
            "<if test=\"ticket!=null\">",

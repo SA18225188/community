@@ -18,7 +18,7 @@ import java.util.Properties;
 @Configuration
 public class KaptchaConfig {
 
-    //方法名是作为返回对象到名字到，下面放入spring容器中到bean的name是，value是Producer
+    //方法名是作为返回对象的名字，下面放入spring容器中到bean的name是kaptchaProducer，value是Producer
     @Bean
     public Producer KaptchaProducer(){
 

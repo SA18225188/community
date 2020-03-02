@@ -13,7 +13,7 @@ public class CommunityUtil {
 
 //    生成随机字符串
     public static String generateUUID(){
-        return UUID.randomUUID().toString().replaceAll(" ", "");
+        return UUID.randomUUID().toString().replaceAll("-", "");
     }
 
 
@@ -37,11 +37,13 @@ public class CommunityUtil {
      * 把以上三种信息包装成json对象
      */
 
+    //ajax中得到利用
     public static String getJSONString(int code, String msg, Map<String, Object> map){
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("code", code);
         jsonObject.put("msg", msg);
         if (map != null){
+            //遍历key
             for(String key: map.keySet()){
                 jsonObject.put(key, map.get(key));
             }

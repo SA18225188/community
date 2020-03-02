@@ -159,7 +159,7 @@ public class LoginController implements CommunityConstant {
     }
 
 
-    //需要session取验证码，进行比较，需要cookie保存，所有需要respose
+    //之前代码需要session取验证码，进行比较，需要cookie保存，创建cookie需要response
     //重构之前的代码
 //    @RequestMapping(path = "/login", method = RequestMethod.POST)
 //    public String login(String username, String password, String code, boolean rememberme,
@@ -172,6 +172,7 @@ public class LoginController implements CommunityConstant {
 //        }
 //
 //        //检查账号，密码
+    //勾出remember之后会存放时间比较长
 //        int expiredSeconds = rememberme ? REMEMBER_EXPIRED_SECONDS : DEFAULT_EXPORED_SECONDS;
 //        Map<String, Object> map = userService.login(username, password, expiredSeconds);
 //        if (map.containsKey("ticket")){

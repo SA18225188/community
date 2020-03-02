@@ -21,6 +21,7 @@ public class ExceptionAdvice {
     private static final Logger logger = LoggerFactory.getLogger(ExceptionAdvice.class);
 
     //Exception是所有异常的父类，所有异常都可以用这个处理
+    //表示处理哪些异常
     @ExceptionHandler({Exception.class})
     public void handleException(Exception e, HttpServletRequest request, HttpServletResponse response) throws IOException{
         logger.error("服务器发生异常:" + e.getMessage());
@@ -38,8 +39,7 @@ public class ExceptionAdvice {
             write = response.getWriter();
             write.write(CommunityUtil.getJSONString(1, "服务器异常"));
         }else {
-            //返回页面
-
+            //否则就是普通的错误请求
             response.sendRedirect(request.getContextPath() + "/error");
         }
     }
