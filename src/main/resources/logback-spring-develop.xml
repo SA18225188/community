@@ -87,7 +87,7 @@
     </appender>
 
 
-    <logger name="com.nowcoder.community" level="debug"/>
+    <logger name="com.ustc.community" level="debug"/>
 
     <root level="info">
         <!--引用上面FILE_ERROR组件，告诉我要启动什么组件，实现什么日志-->
