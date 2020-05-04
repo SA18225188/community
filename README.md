@@ -1,10 +1,6 @@
 # community
 
-设计描述：
-1. 使用Redis缓存热点数据，优化系统性能和实现Session共享
-2. 使用Kafka实现异步发送消息，解耦生产者和消费者、缓存消息
-3. 使用Elasticsearch实现全文搜索功能，提供实时的搜索服务
-4. 使用ThreadLocal存储当前登陆用户，使用前缀树算法实现敏感词过滤功能
+SpringBoot的Java Web项目，框架使用了SSM，数据库采用了Mysql和Redis，使用Kafka作为消息队列，以及Elastic Search作为搜索引擎。
 
 项目收获：通过该项目的开发，使我熟悉了相关技术栈的使用，学会了用⼀些开源技术进⼀步优化项目，⽐如使用Caffeine实
 现本地缓存热⻔帖子，优化前后均使用JMeter模拟100个线程对50万条帖子进行压力测试，测试结果表明没加本地缓存之前TPS
