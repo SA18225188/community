@@ -106,7 +106,6 @@ public class EventConsumer implements CommunityConstant {
             logger.error("消息格式错误");
             return;
         }
-
         elasticsearchService.deteteDiscussPost(event.getEntityId() );
     }
 

@@ -1,6 +1,5 @@
 package com.ustc.community.config;
 
-import com.ustc.community.controller.interceptor.AlphaInterceptor;
 import com.ustc.community.controller.interceptor.DataInterceptor;
 import com.ustc.community.controller.interceptor.LoginTicketInterceptor;
 import com.ustc.community.controller.interceptor.MessageIntereceptor;
@@ -13,8 +12,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 //拦截器配置需要实现一个接口
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
-    @Autowired
-    private AlphaInterceptor alphaInterceptor;
+
 
     @Autowired
     private LoginTicketInterceptor loginTicketInterceptor;
@@ -31,10 +29,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
 //        /**表示static目录下所有多文件夹 ，不需要拦截静态资源 所以exclude掉
-        registry.addInterceptor(alphaInterceptor)
-                .excludePathPatterns("/**/*.css", "/**/*.js", "/**/*.png", "/**/*.jpg", "/**/*.jpeg")
-                .addPathPatterns("/register", "/login");
-
 
         registry.addInterceptor(loginTicketInterceptor)
                 .excludePathPatterns("/**/*.css", "/**/*.js", "/**/*.png", "/**/*.jpg", "/**/*.jpeg");

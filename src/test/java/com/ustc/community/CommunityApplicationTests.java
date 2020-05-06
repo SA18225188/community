@@ -1,6 +1,5 @@
 package com.ustc.community;
 
-import com.ustc.community.dao.AlphaDao;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.BeansException;

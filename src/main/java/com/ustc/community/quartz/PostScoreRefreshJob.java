@@ -19,7 +19,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class PostScoreRefreshJob implements Job, CommunityConstant {
+public class
+PostScoreRefreshJob implements Job, CommunityConstant {
 
 
     //定时任务启动的时候最好在关键节点记录日志

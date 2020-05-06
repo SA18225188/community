@@ -174,7 +174,6 @@ public class DiscussController implements CommunityConstant {
     }
 
     //置顶
-
     @RequestMapping(path = "/top", method = RequestMethod.POST)
     @ResponseBody
     public String setTop(int id) {

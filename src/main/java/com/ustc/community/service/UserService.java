@@ -61,7 +61,6 @@ public class UserService implements CommunityConstant {
     public Map<String, Object> register(User user) {
         Map<String, Object> map = new HashMap<>();
 
-
         //空值处理
         if (user == null) {
             throw new IllegalArgumentException("参数不为空");
@@ -105,7 +104,6 @@ public class UserService implements CommunityConstant {
         user.setHeaderUrl(String.format("http://images.nowcoder.com/head/%dt.png", new Random().nextInt(1000)));
         user.setCreateTime(new Date());
         userMapper.insertUser(user);
-
 
         //发送激活邮件
 
@@ -237,27 +235,4 @@ public class UserService implements CommunityConstant {
         String redisKey = RedisKeyUtil.getUserKey(userId);
         redisTemplate.delete(redisKey);
     }
-
-
-    //获取对应权限放在集合中
-    public Collection<? extends GrantedAuthority> getAuthorities(int userId) {
-        User user = this.findUserById(userId);
-
-        List<GrantedAuthority> list = new ArrayList<>();
-        list.add(new GrantedAuthority() {
-            @Override
-            public String getAuthority() {
-                switch (user.getType()) {
-                    case 1:
-                        return AUTHRITY_ADMIN;
-                    case 2:
-                        return AUTHRITY_MODERATOR;
-                    default:
-                        return AUTHRITY_USER;
-                }
-            }
-        });
-        return list;
-    }
-
 }

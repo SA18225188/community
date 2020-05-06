@@ -19,11 +19,11 @@ public class ServiceLogAspect {
 
 
     //描述哪些方法需要处理
-//    *表示所有的返回值，com.nowcoder.community.service包名，*是所有的业务组件，*表示所有方法 ，(..)表示所有的参数
+//    *表示所有的返回值，com.ustc.community.service包名，*是所有的业务组件，*表示所有方法 ，(..)表示所有的参数
     //因为注入log，需要实例日志
     private static final Logger logger = LoggerFactory.getLogger(ServiceLogAspect.class);
 
-    @Pointcut("execution(* com.nowcoder.community.service.*.*(..))")
+    @Pointcut("execution(* com.ustc.community.service.*.*(..))")
     public void pointcut() {
 
     }
@@ -32,7 +32,7 @@ public class ServiceLogAspect {
     //除了环绕组件，也可以植入连接点JoinPoint
     @Before("pointcut()")
     public void before(JoinPoint joinPoint) {
-        // 日志格式：用户[1.2.3.4],在[xxx时间],访问了[com.nowcoder.community.service.xxx()功能].
+        // 日志格式：用户[1.2.3.4],在[xxx时间],访问了[com.ustc.community.service.xxx()功能].
        //以下代码目的是获取ip
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         //表示这是一个特殊的日志，就不记录日志了

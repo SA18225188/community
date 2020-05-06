@@ -1,6 +1,5 @@
 package com.ustc.community;
 
-import com.ustc.community.service.AlphaService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
